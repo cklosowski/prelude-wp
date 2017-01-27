@@ -22,8 +22,7 @@ jsFiles = ['./assets/js/theme.js'];
 imageFiles = ['./assets/images/*.{jpg,png,gif,svg}'];
 concatFiles = [
   './assets/js/*.js',
-  '!./assets/js/theme.min.js',
-  '!./assets/js/all.js'
+  '!./assets/js/theme.min.js'
 ];
 url = 'factor1.dev'; // See https://browsersync.io/docs/options/#option-proxy
 
@@ -37,46 +36,46 @@ $ = require('gulp-load-plugins')({lazy: true});
 
 options = {
   browsersync: {
-      proxy: url,
-      ghostMode: {
-          clicks: true,
-          forms: true,
-          scroll: false
-      },
-      browser: [
-          'google chrome'
-      ],
-      reloadOnRestart: true,
-      injectChanges: true
+    proxy: url,
+    ghostMode: {
+      clicks: true,
+      forms: true,
+      scroll: false
+    },
+    browser: [
+      'google chrome'
+    ],
+    reloadOnRestart: true,
+    injectChanges: true
   },
   stylelint: {
-      reporters: [{
-          formatter: 'string',
-          console: true
-      }]
+    reporters: [{
+      formatter: 'string',
+      console: true
+    }]
   },
   sass: {
-      outputStyle: 'compact',
-      includePaths: [
-          './node_modules/normalize-scss/sass/'
-      ]
+    outputStyle: 'compact',
+    includePaths: [
+      './node_modules/normalize-scss/sass/'
+    ]
   },
   autoprefixer: {
-      browsers: ['> 1%', 'last 3 versions', 'Safari > 7'],
-      cascade: false
+    browsers: ['> 1%', 'last 3 versions', 'Safari > 7'],
+    cascade: false
   },
   cssnano: {
-      discardComments: {
-          removeAll: true
-      },
-      autoprefixer: false,
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      calc: {
-          mediaQueries: true
-      },
-      zindex: false
+    discardComments: {
+      removeAll: true
+    },
+    autoprefixer: false,
+    discardUnused: false,
+    mergeIdents: false,
+    reduceIdents: false,
+    calc: {
+      mediaQueries: true
+    },
+    zindex: false
   }
 };
 
@@ -103,7 +102,7 @@ gulp.task('clean:js', function() {
   # Development Tasks
 ------------------------------------------------------------------------------------------------- */
 // Launch a server via BrowserSync
-gulp.task( 'serve', function() {
+gulp.task('serve', function() {
   browserSync.init(options.browsersync);
 });
 
@@ -184,8 +183,7 @@ gulp.task('images', function() {
 
 // Create a production ready zip for upload
 gulp.task('package', ['sass', 'scripts', 'images'], function() {
-  return gulp
-  .src( [
+  return gulp.src([
     './**/*',
     '!node_modules',
     '!node_modules/**',
@@ -196,9 +194,9 @@ gulp.task('package', ['sass', 'scripts', 'images'], function() {
     '!./assets/scss/',
     '!./assets/scss/**',
     '!./assets/js/theme.js'
-  ] )
-	.pipe($.zip( theme + '.zip' ))
-	.pipe(gulp.dest( './' ));
+  ])
+  .pipe($.zip(theme + '.zip'))
+  .pipe(gulp.dest('./'));
 });
 
 // Alias for the package task
@@ -212,8 +210,8 @@ gulp.task('default', ['styles', 'scripts', 'watch', 'serve']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch( sassFiles, ['styles']);
-  gulp.watch( jsFiles, ['scripts']);
-  gulp.watch( phpFiles, browserSync.reload );
-  gulp.watch( htmlFiles, browserSync.reload );
+  gulp.watch(sassFiles, ['styles']);
+  gulp.watch(jsFiles, ['scripts']);
+  gulp.watch(phpFiles, browserSync.reload);
+  gulp.watch(htmlFiles, browserSync.reload);
 });
