@@ -25,7 +25,7 @@ concatFiles = [
   '!./assets/js/theme.min.js',
   '!./assets/js/all.js'
 ];
-url = 'wp-dev:8888'; // See https://browsersync.io/docs/options/#option-proxy
+url = 'factor1.dev'; // See https://browsersync.io/docs/options/#option-proxy
 
 // Include gulp and other plugins
 gulp = require('gulp');
@@ -81,6 +81,25 @@ options = {
 };
 
 /* -------------------------------------------------------------------------------------------------
+  # Utility Tasks
+------------------------------------------------------------------------------------------------- */
+// Delete compiled CSS and sourcemap
+gulp.task('clean:css', function() {
+  del([
+    './assets/css/theme.min.css',
+    './assets/css/sourcemaps'
+  ]);
+});
+
+// Delete compiled JS file and sourcemap
+gulp.task('clean:js', function() {
+  del([
+    './assets/js/theme.min.js',
+    './assets/js/sourcemaps'
+  ]);
+});
+
+/* -------------------------------------------------------------------------------------------------
   # Development Tasks
 ------------------------------------------------------------------------------------------------- */
 // Launch a server via BrowserSync
@@ -97,7 +116,7 @@ gulp.task('sass:lint', function() {
 });
 
 // Compile and optimize Sass via CSSNano
-gulp.task('sass', function() {
+gulp.task('sass', ['clean:css'], function() {
   return gulp
   .src(sassFiles)
   .pipe($.sourcemaps.init())
@@ -110,7 +129,7 @@ gulp.task('sass', function() {
   .pipe($.rename({
     suffix: '.min'
   }))
-  .pipe($.sourcemaps.write('./assets/css/sourcemaps'))
+  .pipe($.sourcemaps.write('/sourcemaps'))
   .pipe(gulp.dest('./assets/css'))
   .pipe(browserSync.reload({
     stream: true
@@ -134,7 +153,7 @@ gulp.task('js:lint', function() {
   # Production Tasks
 ------------------------------------------------------------------------------------------------- */
 // Concatenate & minify JavaScript
-gulp.task('scripts', function() {
+gulp.task('js', function() {
   return gulp
   .src(concatFiles)
   .pipe($.sourcemaps.init())
@@ -150,6 +169,9 @@ gulp.task('scripts', function() {
   .pipe(gulp.dest('./assets/js/'));
 });
 
+// Alias for the JS task
+gulp.task('scripts', ['js']);
+
 // Compress images
 gulp.task('images', function() {
   return gulp
@@ -160,26 +182,31 @@ gulp.task('images', function() {
   .pipe(gulp.dest('./assets/images/'));
 });
 
-// Package a zip for theme upload
-gulp.task('package', function() {
+// Create a production ready zip for upload
+gulp.task('package', ['sass', 'scripts', 'images'], function() {
   return gulp
   .src( [
     './**/*',
-    '!bower_components',
     '!node_modules',
-    '!bower_components/**',
-    '!node_modules/**'
+    '!node_modules/**',
+    '!./assets/css/sourcemaps',
+    '!./assets/css/sourcemaps/**',
+    '!./assets/js/sourcemaps/',
+    '!./assets/js/sourcemaps/**',
+    '!./assets/scss/',
+    '!./assets/scss/**',
+    '!./assets/js/theme.js'
   ] )
-	.pipe(zip( theme + '.zip' ))
+	.pipe($.zip( theme + '.zip' ))
 	.pipe(gulp.dest( './' ));
 });
 
-// Build task to run all tasks and and package for distribution
-gulp.task('build', ['sass', 'scripts', 'images', 'package']);
+// Alias for the package task
+gulp.task('build', ['package']);
 
-/*------------------------------------------------------------------------------
-  Default Tasks
-------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------
+  # Default Tasks
+------------------------------------------------------------------------------------------------- */
 // Default Task
 gulp.task('default', ['styles', 'scripts', 'watch', 'serve']);
 
