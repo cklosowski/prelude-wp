@@ -1,10 +1,10 @@
 <?php
-  /**
-   * The default page template.
-   *
-   * Used when a default template individual page is queried.
-   */
-  get_header();
+/**
+ * The default page template.
+ *
+ * Used when a default template individual page is queried.
+ */
+get_header();
 ?>
 
   <section class="main-content">
@@ -15,12 +15,12 @@
         } ?>
         <h1><?php the_title(); ?></h1>
         <?php
-          the_content();
-          edit_post_link( 'Edit this entry.', '<hr><p>', '</p>' );
+        the_content();
+        edit_post_link( 'Edit this entry.', '<hr><p>', '</p>' );
         ?>
       </article>
     <?php endwhile; endif; ?>
   </section>
 
 <?php
-  get_footer();
+get_footer();

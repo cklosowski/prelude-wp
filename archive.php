@@ -1,15 +1,15 @@
 <?php
-  /**
-   * The archive template.
-   *
-   * Used when a category, author, or date is queried.
-   */
-  get_header();
+/**
+ * The archive template.
+ *
+ * Used when a category, author, or date is queried.
+ */
+get_header();
 ?>
 
   <section>
     <?php if ( have_posts() ) : ?>
-      <?php $post = $posts[ 0 ]; ?>
+      <?php $post = $posts[0]; ?>
 
       <div>
         <?php if ( is_category() ) : ?>
@@ -24,22 +24,22 @@
           <h2 class="pagetitle">Archive for <?php the_time( 'Y' ); ?></h2>
         <?php elseif ( is_author() ) : ?>
           <h2 class="pagetitle">Author Archive</h2>
-        <?php elseif ( isset($_GET[ 'paged' ]) && !empty($_GET[ 'paged' ]) ) : ?>
+        <?php elseif ( isset( $_GET['paged'] ) && ! empty( $_GET['paged'] ) ) : ?>
           <h2 class="pagetitle">Blog Archives</h2>
         <?php endif; ?>
 
         <?php while ( have_posts() ) : the_post(); ?>
           <div <?php post_class(); ?>>
-            <h2 id="post-<?php the_ID(); ?>"><a
-                href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            <h2 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+
             <?php
-              get_template_part( 'parts/meta' );
-              the_content();
+            get_template_part( 'parts/meta' );
+            the_content();
             ?>
           </div>
         <?php endwhile; ?>
 
-        <?php the_posts_pagination( array('mid_size' => 2) ); ?>
+        <?php the_posts_pagination( array( 'mid_size' => 2 ) ); ?>
       </div>
     <?php else : ?>
       <h2>Nothing found</h2>
@@ -47,4 +47,4 @@
   </section>
 
 <?php
-  get_footer();
+get_footer();

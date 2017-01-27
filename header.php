@@ -5,7 +5,7 @@
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:title" content="<?php the_title(); ?>" />
-  <meta property="og:site_name" content="<?php bloginfo('name') ?>">
+  <meta property="og:site_name" content="<?php bloginfo( 'name' ) ?>">
 
   <?php
   /* Theme color for browsers that support it
@@ -18,11 +18,13 @@
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
   <?php endif; ?>
 
-  <?php if (is_search()) { ?>
-   <meta name="robots" content="noindex, nofollow" />
-	<?php } ?>
+  <?php if ( is_search() ) { ?>
+    <meta name="robots" content="noindex, nofollow" />
+  <?php } ?>
 
-  <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
+  <?php if ( is_singular() ) {
+    wp_enqueue_script( 'comment-reply' );
+  } ?>
 
   <?php wp_head(); ?>
 </head>
@@ -37,7 +39,7 @@
     </h1>
 
     <nav class="main-nav">
-      <?php wp_nav_menu( array('theme_location' => 'primary') ); ?>
+      <?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
     </nav>
 
   </header>
