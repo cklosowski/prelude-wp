@@ -1,18 +1,18 @@
 {
-    "env": {
-        "browser": true,
-        "es6": false,
-        "jquery": true
-    },
-    "parserOptions": {
-        "sourceType": "script"
-    },
-    "plugins": [
-        "html"
-    ],
-    "settings": {
-        "html/indent": "+2"
-    },
-    "extends": "airbnb",
-    "rules": {}
+  "env": {
+    "browser": true,
+    "es6": false,
+    "jquery": true
+  },
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "plugins": [
+    "html"
+  ],
+  "settings": {
+    "html/indent": "+2"
+  },
+  "extends": "airbnb",
+  "rules": {}
 }
