@@ -1,48 +1,44 @@
 /* -------------------------------------------------------------------------------------------------
   # Global Styles
 ------------------------------------------------------------------------------------------------- */
-/* Set box sizing to elimate math in the padding */
 * {
-  -webkit-box-sizing : border-box;
-  -moz-box-sizing    : border-box;
-  box-sizing         : border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-  border      : 0;
-  margin      : 0;
-  padding     : 0;
-  width       : 100%;
-  min-height  : 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
 }
 
 html,
 html a {
-  -webkit-font-smoothing : antialiased !important;
-  text-shadow            : 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -webkit-font-smoothing: antialiased !important;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
 body {
-  font                       : 100%/1.25 arial, helvetica, sans-serif;
-  min-height                 : 100%;
-  overflow-y                 : scroll;
-  /* has to be scroll, not auto */
-  -webkit-overflow-scrolling : touch;
+  font: 100%/1.25 arial, helvetica, sans-serif;
+  min-height: 100%;
+  overflow-y: scroll; // has to be scroll, not auto
+  -webkit-overflow-scrolling: touch;
 }
 
 // Hide empty paragraphs
-p:empty{
+p:empty {
   display: none !important;
 }
 
 // Tables
 table {
-  margin  : 0 0 18px;
+  margin: 0 0 18px;
 }
 
-/* keep images from spilling out of columns */
-img{
+// Keep images from spilling out of columns
+img {
   max-width: 100%;
   height: auto;
 }
@@ -55,6 +51,7 @@ img{
   padding-bottom: 56.25%;
   margin-bottom: 1rem;
   overflow: hidden;
+
   iframe, object, embed, video {
     position: absolute;
     top: 0;
