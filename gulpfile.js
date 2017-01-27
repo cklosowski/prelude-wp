@@ -19,7 +19,7 @@ cssFiles = [
 ];
 sassFiles = ['./assets/scss/**/*.scss'];
 jsFiles = ['./assets/js/theme.js'];
-imageFiles = ['./assets/img/*.{jpg,png,gif,svg}'];
+imageFiles = ['./assets/images/*.{jpg,png,gif,svg}'];
 concatFiles = [
   './assets/js/*.js',
   '!./assets/js/theme.min.js',
@@ -83,12 +83,12 @@ options = {
 /* -------------------------------------------------------------------------------------------------
   # Development Tasks
 ------------------------------------------------------------------------------------------------- */
-// Launch a development server
+// Launch a server via BrowserSync
 gulp.task( 'serve', function() {
   browserSync.init(options.browsersync);
 });
 
-// Lint Sass/CSS
+// Lint Sass via StyleLint
 gulp.task('sass:lint', function() {
   return gulp
   .src(sassFiles)
@@ -96,7 +96,7 @@ gulp.task('sass:lint', function() {
   .pipe($.stylelint(options.stylelint));
 });
 
-// Compile and optimize Sass
+// Compile and optimize Sass via CSSNano
 gulp.task('sass', function() {
   return gulp
   .src(sassFiles)
@@ -117,6 +117,9 @@ gulp.task('sass', function() {
   }));
 });
 
+// Alias for the Sass tasks
+gulp.task('styles', ['sass']);
+
 // Lint JavaScript via ESLint
 gulp.task('js:lint', function() {
   return gulp
@@ -127,72 +130,58 @@ gulp.task('js:lint', function() {
   .pipe($.eslint.failAfterError());
 });
 
-/*------------------------------------------------------------------------------
-  Production Tasks
-------------------------------------------------------------------------------*/
-// Minimize CSS
-gulp.task('minify-css', ['sass'], function() {
-	return gulp.src( cssFiles )
-  	.pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(nano({
-      discardComments: {removeAll: true},
-      autoprefixer: false,
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      calc: {mediaQueries: true},
-      zindex: false
-    }))
-    .pipe(gulp.dest( './assets/css' ))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
+/* -------------------------------------------------------------------------------------------------
+  # Production Tasks
+------------------------------------------------------------------------------------------------- */
+// Concatenate & minify JavaScript
+gulp.task('scripts', function() {
+  return gulp
+  .src(concatFiles)
+  .pipe($.sourcemaps.init())
+  .pipe($.plumber())
+  .pipe($.print())
+  .pipe($.concat('all.js'))
+  .pipe($.uglify())
+  .pipe($.rename({
+    basename: 'theme',
+    suffix: '.min'
+  }))
+  .pipe($.sourcemaps.write('/sourcemaps'))
+  .pipe(gulp.dest('./assets/js/'));
 });
 
-// Concatenate & Minify JavaScript
-gulp.task('scripts', ['lint'], function() {
-  return gulp.src( concatFiles )
-    .pipe(concat( 'all.js' ))
-    .pipe(gulp.dest( './assets/js/' ))
-    .pipe(rename('theme.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest( './assets/js/' ));
-});
-
-// Compress Images
+// Compress images
 gulp.task('images', function() {
-  return gulp.src( imageFiles )
-  .pipe(plumber())
-  .pipe(imagemin())
-  .pipe(gulp.dest( './assets/img/' ));
+  return gulp
+  .src(imageFiles)
+  .pipe($.plumber())
+  .pipe($.print())
+  .pipe($.imagemin())
+  .pipe(gulp.dest('./assets/images/'));
 });
 
 // Package a zip for theme upload
 gulp.task('package', function() {
-  return gulp.src( [
+  return gulp
+  .src( [
     './**/*',
     '!bower_components',
     '!node_modules',
     '!bower_components/**',
     '!node_modules/**'
   ] )
-		.pipe(zip( theme + '.zip' ))
-		.pipe(gulp.dest( './' ));
+	.pipe(zip( theme + '.zip' ))
+	.pipe(gulp.dest( './' ));
 });
 
 // Build task to run all tasks and and package for distribution
 gulp.task('build', ['sass', 'scripts', 'images', 'package']);
 
-// Styles Task - minify-css is the only task we call, because it is dependent upon sass running first.
-gulp.task('styles', ['minify-css']);
-
 /*------------------------------------------------------------------------------
   Default Tasks
 ------------------------------------------------------------------------------*/
 // Default Task
-gulp.task('default', ['styles', 'scripts', 'serve', 'watch']);
+gulp.task('default', ['styles', 'scripts', 'watch', 'serve']);
 
 // Watch Files For Changes
 gulp.task('watch', function() {
