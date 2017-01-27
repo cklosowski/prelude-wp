@@ -13,7 +13,9 @@ get_header();
         <?php if ( has_post_thumbnail() ) {
           the_post_thumbnail();
         } ?>
+
         <h1><?php the_title(); ?></h1>
+
         <?php
         the_content();
         edit_post_link( 'Edit this entry.', '<hr><p>', '</p>' );

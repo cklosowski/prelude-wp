@@ -1,10 +1,9 @@
-<?php // Close main ?>
-</main>
+  </main><!-- /main -->
 
-<footer>
+  <footer>
+  <!-- code -->
+  </footer>
 
-</footer>
-
-<?php wp_footer(); ?>
+  <?php wp_footer(); ?>
 </body>
 </html>
