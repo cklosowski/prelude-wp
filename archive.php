@@ -21,11 +21,11 @@ get_header();
         <?php elseif ( is_month() ) : ?>
           <h2>Archive for <?php the_time( 'F, Y' ); ?></h2>
         <?php elseif ( is_year() ) : ?>
-          <h2 class="pagetitle">Archive for <?php the_time( 'Y' ); ?></h2>
+          <h2>Archive for <?php the_time( 'Y' ); ?></h2>
         <?php elseif ( is_author() ) : ?>
-          <h2 class="pagetitle">Author Archive</h2>
+          <h2>Author Archive</h2>
         <?php elseif ( isset( $_GET['paged'] ) && ! empty( $_GET['paged'] ) ) : ?>
-          <h2 class="pagetitle">Blog Archives</h2>
+          <h2>Blog Archives</h2>
         <?php endif; ?>
 
         <?php while ( have_posts() ) : the_post(); ?>
