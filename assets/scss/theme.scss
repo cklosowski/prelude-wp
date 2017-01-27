@@ -1,30 +1,18 @@
-/*-----------------------------------------------------------------------------
+/* -------------------------------------------------------------------------------------------------
   Table of Contents
-  - Vendor
-  - Globals
-  - Plugins
-  - Pages
-  - Parts
-  - Components
------------------------------------------------------------------------------*/
-// import the Sass partials in the order that you need here
-
-// vendor
-@import 'normalize';
+    - Vendor
+    - Globals
+    - Plugins
+    - Pages
+    - Parts
+    - Components
+------------------------------------------------------------------------------------------------- */
+// Vendor
+@import "normalize";
 @include normalize();
 
-// Variables
-@import 'settings/variables';
-
-// Global Styles
-@import 'globals/global';
-@import 'globals/wordpress';
-@import 'globals/typography';
-
-// Components
-@import 'components/social-menu';
-@import 'components/header';
-@import 'components/footer';
-
-// Plugin Overrides
-@import 'plugins/overrides';
+// Theme styles
+@import "settings/all";
+@import "globals/all";
+@import "components/all";
+@import "plugins/all";
