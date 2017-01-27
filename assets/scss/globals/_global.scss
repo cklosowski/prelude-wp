@@ -1,65 +1,53 @@
 /* -------------------------------------------------------------------------------------------------
   # Global Styles
 ------------------------------------------------------------------------------------------------- */
-* {
+:root {
   box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-html,
+// For IE
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  }
+}
+
+// For IE
+html {
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: #000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-}
-
-html,
-html a {
-  -webkit-font-smoothing: antialiased !important;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-}
-
-body {
-  font: 100%/1.25 arial, helvetica, sans-serif;
-  min-height: 100%;
-  overflow-y: scroll; // has to be scroll, not auto
+  min-width: 100%;
+  min-height: 100vh;
+  font-size: 100%;
+  background-color: #fff;
+  overflow-x: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-}
-
-// Hide empty paragraphs
-p:empty {
-  display: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 // Tables
+// --------------------------------------------------------------
 table {
   margin: 0 0 18px;
 }
 
-// Keep images from spilling out of columns
+// Images
+// --------------------------------------------------------------
 img {
   max-width: 100%;
   height: auto;
-}
-
-// Flex Video taken from Zurb's Foundation Framework
-.flex-video {
-  position: relative;
-  height: 0;
-  padding-top: 0;
-  padding-bottom: 56.25%;
-  margin-bottom: 1rem;
-  overflow: hidden;
-
-  iframe,
-  object,
-  embed,
-  video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
 }
