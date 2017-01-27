@@ -67,7 +67,7 @@
     "function-whitespace-after": "always",
     "function-url-data-uris": "never",
     "function-url-quotes": "never",
-    "indentation": 4,
+    "indentation": 2,
     "keyframe-declaration-no-important": true,
     "length-zero-no-unit": true,
     "max-empty-lines": 1,
