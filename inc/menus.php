@@ -5,9 +5,9 @@
 
 function prelude_custom_menus() {
   register_nav_menus( array(
-    'primary' => __( 'Primary Menu', 'theme-slug' ),
-    'footer'  => __( 'Footer Menu', 'theme-slug' ),
-    'social'  => __( 'Social Menu', 'theme-slug' )
+    'primary' => __( 'Primary Menu', 'prelude-wp' ),
+    'footer'  => __( 'Footer Menu', 'prelude-wp' ),
+    'social'  => __( 'Social Menu', 'prelude-wp' )
   ) );
 }
 

@@ -5,7 +5,7 @@
 
 function prelude_widgets_init() {
   register_sidebar( array(
-    'name'          => __( 'Sidebar', 'theme-slug' ),
+    'name'          => __( 'Sidebar', 'prelude-wp' ),
     'id'            => 'sidebar-1',
     'description'   => '',
     'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -14,7 +14,7 @@ function prelude_widgets_init() {
     'after_title'   => '</h2>'
   ) );
   register_sidebar( array(
-    'name'          => __( 'Footer Area 1', 'theme-slug' ),
+    'name'          => __( 'Footer Area 1', 'prelude-wp' ),
     'id'            => 'footer-widget',
     'description'   => 'Appears in the first footer area',
     'before_widget' => '<aside id="footer-widget" class="footer-widget">',
@@ -23,7 +23,7 @@ function prelude_widgets_init() {
     'after_title'   => '</h2>'
   ) );
   register_sidebar( array(
-    'name'          => __( 'Footer Area 2', 'theme-slug' ),
+    'name'          => __( 'Footer Area 2', 'prelude-wp' ),
     'id'            => 'footer-widget-2',
     'description'   => 'Appears in the second footer area',
     'before_widget' => '<aside id="footer-widget-2" class="footer-widget">',
@@ -32,7 +32,7 @@ function prelude_widgets_init() {
     'after_title'   => '</h2>'
   ) );
   register_sidebar( array(
-    'name'          => __( 'Footer Area 3', 'theme-slug' ),
+    'name'          => __( 'Footer Area 3', 'prelude-wp' ),
     'id'            => 'footer-widget-3',
     'description'   => 'Appears in the third footer area',
     'before_widget' => '<aside id="footer-widget-3" class="footer-widget">',
@@ -41,7 +41,7 @@ function prelude_widgets_init() {
     'after_title'   => '</h2>'
   ) );
   register_sidebar( array(
-    'name'          => __( 'Footer Area 4', 'theme-slug' ),
+    'name'          => __( 'Footer Area 4', 'prelude-wp' ),
     'id'            => 'footer-widget-4',
     'description'   => 'Appears in the fourth footer area',
     'before_widget' => '<aside id="footer-widget-4" class="footer-widget">',

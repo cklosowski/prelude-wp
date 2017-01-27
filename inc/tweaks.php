@@ -18,7 +18,7 @@ add_action( 'init', 'prelude_page_excerpt' );
 
 // Customize the default read more link
 function prelude_continue_reading_link() {
-  return ' <a href="' . get_permalink() . '">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'theme-slug' ) . '</a>';
+  return ' <a href="' . get_permalink() . '">' . __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'prelude-wp' ) . '</a>';
 }
 
 // Customize the default ellipsis (...)
