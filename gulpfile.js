@@ -1,87 +1,130 @@
-/*------------------------------------------------------------------------------
-  Gulpfile.js
-------------------------------------------------------------------------------*/
+/* eslint-disable */
+var theme, phpFiles, htmlFiles, cssFiles, sassFiles, jsFiles, imageFiles, concatFiles, url, gulp, del, postscss, postreporter, browserSync, $, options;
+
 // Name your theme - this is outputted only when packaging your project.
-var theme        = 'your-theme-name';
+theme = 'your-theme-name';
 
 // Set the paths you will be working with
-var phpFiles     = ['./**/*.php', './*.php'],
-    htmlFiles    = ['./**/*.html', './*.html'],
-    cssFiles     = ['./assets/css/*.css', '!./assets/css/*.min.css'],
-    sassFiles    = ['./assets/scss/**/*.scss'],
-    styleFiles   = [cssFiles, sassFiles],
-    jsFiles      = ['./assets/js/theme.js'],
-    imageFiles   = ['./assets/img/*.{jpg,png,gif,svg}'],
-    concatFiles  = ['./assets/js/*.js', '!./assets/js/theme.min.js', '!./assets/js/all.js'],
-    url          = 'wp-dev:8888'; // See https://browsersync.io/docs/options/#option-proxy
+phpFiles = [
+  './*.php',
+  './**/*.php'
+];
+htmlFiles = [
+  './*.html',
+  './**/*.html'
+];
+cssFiles = [
+  './assets/css/*.css',
+  '!./assets/css/*.min.css'
+];
+sassFiles = ['./assets/scss/**/*.scss'];
+jsFiles = ['./assets/js/theme.js'];
+imageFiles = ['./assets/img/*.{jpg,png,gif,svg}'];
+concatFiles = [
+  './assets/js/*.js',
+  '!./assets/js/theme.min.js',
+  '!./assets/js/all.js'
+];
+url = 'wp-dev:8888'; // See https://browsersync.io/docs/options/#option-proxy
 
-// Include gulp
-var gulp         = require('gulp');
+// Include gulp and other plugins
+gulp = require('gulp');
+del = require('del');
+postscss = require('postcss-scss');
+postreporter = require('postcss-reporter');
+browserSync = require('browser-sync').create();
+$ = require('gulp-load-plugins')({lazy: true});
 
-// Include plugins
-var jshint       = require('gulp-jshint'),
-    sass         = require('gulp-sass'),
-    concat       = require('gulp-concat'),
-    uglify       = require('gulp-uglify'),
-    rename       = require('gulp-rename'),
-    imagemin     = require('gulp-imagemin'),
-    nano         = require('gulp-cssnano'),
-    sourcemaps   = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
-    browserSync  = require('browser-sync'),
-    plumber      = require('gulp-plumber'),
-    stylish      = require('jshint-stylish'),
-    notify       = require('gulp-notify'),
-    zip          = require('gulp-zip');
+options = {
+  browsersync: {
+      proxy: url,
+      ghostMode: {
+          clicks: true,
+          forms: true,
+          scroll: false
+      },
+      browser: [
+          'google chrome'
+      ],
+      reloadOnRestart: true,
+      injectChanges: true
+  },
+  stylelint: {
+      reporters: [{
+          formatter: 'string',
+          console: true
+      }]
+  },
+  sass: {
+      outputStyle: 'compact',
+      includePaths: [
+          './node_modules/normalize-scss/sass/'
+      ]
+  },
+  autoprefixer: {
+      browsers: ['> 1%', 'last 3 versions', 'Safari > 7'],
+      cascade: false
+  },
+  cssnano: {
+      discardComments: {
+          removeAll: true
+      },
+      autoprefixer: false,
+      discardUnused: false,
+      mergeIdents: false,
+      reduceIdents: false,
+      calc: {
+          mediaQueries: true
+      },
+      zindex: false
+  }
+};
 
-/*------------------------------------------------------------------------------
-  Development Tasks
-------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------
+  # Development Tasks
+------------------------------------------------------------------------------------------------- */
 // Launch a development server
 gulp.task( 'serve', function() {
-  browserSync.init({
-    proxy: url
-      // port: 3000
-  });
+  browserSync.init(options.browsersync);
 });
 
-// Compile Sass
+// Lint Sass/CSS
+gulp.task('sass:lint', function() {
+  return gulp
+  .src(sassFiles)
+  .pipe($.plumber())
+  .pipe($.stylelint(options.stylelint));
+});
+
+// Compile and optimize Sass
 gulp.task('sass', function() {
-  return gulp.src( sassFiles )
-    .pipe(sourcemaps.init())
-      .pipe(plumber())
-      .pipe(sass({
-        includePaths: [
-          './node_modules/normalize-scss/sass/'
-        ]
-      })
-        .on('error', sass.logError))
-        .on('error', notify.onError("Error compiling SASS!")
-      )
-      .pipe(autoprefixer({
-        browsers: ['last 3 versions', 'Safari > 7'],
-        cascade: false
-      }))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest( './assets/css' ))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
+  return gulp
+  .src(sassFiles)
+  .pipe($.sourcemaps.init())
+  .pipe($.plumber())
+  .pipe($.sass(options.sass)
+    .on('error', $.sass.logError))
+    .on('error', $.notify.onError('Error compiling SASS!'))
+  .pipe($.autoprefixer(options.autoprefixer))
+  .pipe($.cssnano(options.cssnano))
+  .pipe($.rename({
+    suffix: '.min'
+  }))
+  .pipe($.sourcemaps.write('./assets/css/sourcemaps'))
+  .pipe(gulp.dest('./assets/css'))
+  .pipe(browserSync.reload({
+    stream: true
+  }));
 });
 
-// Lint JavaScript
-gulp.task('lint', function() {
-  return gulp.src( jsFiles )
-    .pipe(sourcemaps.init())
-      .pipe(plumber())
-      .pipe(jshint())
-      .pipe(jshint.reporter(stylish))
-      .pipe(jshint.reporter('fail'))
-      .on('error', notify.onError({ message: 'Error compiling JavaScript!'}))
-    .pipe(sourcemaps.write())
-    .pipe(browserSync.reload({
-      stream: true
-    }));
+// Lint JavaScript via ESLint
+gulp.task('js:lint', function() {
+  return gulp
+  .src(jsFiles)
+  .pipe($.plumber())
+  .pipe($.eslint())
+  .pipe($.eslint.format())
+  .pipe($.eslint.failAfterError());
 });
 
 /*------------------------------------------------------------------------------
