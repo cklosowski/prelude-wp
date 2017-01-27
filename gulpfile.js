@@ -144,8 +144,7 @@ gulp.task('js:lint', function() {
   .src(jsFiles)
   .pipe($.plumber())
   .pipe($.eslint())
-  .pipe($.eslint.format())
-  .pipe($.eslint.failAfterError());
+  .pipe($.eslint.format());
 });
 
 /* -------------------------------------------------------------------------------------------------

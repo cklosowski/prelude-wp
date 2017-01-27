@@ -1,6 +1,6 @@
-jQuery(function($) {
-  'use strict';
+'use strict';
 
+jQuery(function($) {
   var isTouchDevice;
 
   // Touch Device Detection
