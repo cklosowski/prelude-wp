@@ -38,11 +38,7 @@
     "comment-whitespace-inside": "always",
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",
-    "declaration-block-no-duplicate-properties": [
-      true, {
-        ignore: ["consecutive-duplicates"]
-      }
-    ],
+    "declaration-block-no-duplicate-properties": true,
     "declaration-block-no-ignored-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
     "declaration-block-semicolon-newline-after": "always-multi-line",
@@ -97,6 +93,13 @@
     "no-invalid-double-slash-comments": true,
     "no-missing-end-of-source-newline": true,
     "no-unknown-animations": true,
+    "no-unsupported-browser-features": [
+      true, {
+        browsers: "> 1%, last 3 versions, Safari > 7",
+        ignore: ["rem", "em", "border-radius"],
+        "severity": "warning"
+      }
+    ],
     "number-leading-zero": "always",
     "number-no-trailing-zeros": true,
     "number-max-precision": 10,
@@ -114,7 +117,7 @@
     "selector-combinator-space-before": "always",
     "selector-list-comma-newline-after": "always",
     "selector-list-comma-space-before": "never",
-    "selector-max-compound-selectors": 5,
+    "selector-max-compound-selectors": 3,
     "selector-max-empty-lines": 0,
     "selector-max-specificity": "5,5,5",
     "selector-pseudo-class-case": "lower",

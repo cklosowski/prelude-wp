@@ -43,7 +43,7 @@ img {
   height: auto;
 }
 
-// Flex Video Based on Zurb's Foundation Framework
+// Flex Video taken from Zurb's Foundation Framework
 .flex-video {
   position: relative;
   height: 0;
@@ -52,7 +52,10 @@ img {
   margin-bottom: 1rem;
   overflow: hidden;
 
-  iframe, object, embed, video {
+  iframe,
+  object,
+  embed,
+  video {
     position: absolute;
     top: 0;
     left: 0;
