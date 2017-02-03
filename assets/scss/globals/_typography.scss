@@ -4,6 +4,8 @@
 // Anchors
 // --------------------------------------------------------------
 a,
+a:active,
+a:hover,
 a:visited,
 a:focus {
   text-decoration: none;
@@ -11,6 +13,10 @@ a:focus {
 
 // Paragraphs
 // --------------------------------------------------------------
-p:empty {
-  display: none !important;
+p {
+  max-width: 100%; // For IE
+
+  &:empty {
+    display: none !important;
+  }
 }

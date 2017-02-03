@@ -1,7 +1,4 @@
 <?php
-
-define( 'THEME_VERSION', '0.0.1' );
-
 if ( ! function_exists( 'prelude_features' ) ) {
 
   // Register Theme Features
@@ -54,7 +51,7 @@ if ( ! function_exists( 'prelude_features' ) ) {
 if ( ! is_admin() ) {
   add_action( 'wp_enqueue_scripts', function() {
     wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', ( 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js' ), false );
+    wp_register_script( 'jquery', ( 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' ), false );
     wp_enqueue_script( 'jquery' );
   } );
 }
@@ -79,48 +76,36 @@ if ( ! ( is_admin() ) ) {
 }
 
 /**
- * Link to all theme CSS files.
- */
-function prelude_theme_scripts() {
-  // CSS
-  wp_enqueue_style( 'prelude-css', get_template_directory_uri() . '/assets/css/theme.min.css', array(), THEME_VERSION );
-
-  // JS
-  wp_enqueue_script( 'prelude-js', get_template_directory_uri() . '/assets/js/theme.min.js', array(), THEME_VERSION, true );
-
-  if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-    wp_enqueue_script( 'comment-reply' );
-  }
-}
-
-add_action( 'wp_enqueue_scripts', 'prelude_theme_scripts' );
-
-/**
  * Load menus
  */
-require get_template_directory() . '/inc/menus.php';
+require_once get_parent_theme_file_path('/inc/menus.php');
 
 /**
- * Load custom post types
+ * Enqueue CSS and JS
  */
-require get_template_directory() . '/inc/custom-post-types.php';
+require_once get_parent_theme_file_path('/inc/enqueues.php');
 
 /**
  * Load widgets
  */
-require get_template_directory() . '/inc/widgets.php';
+require_once get_parent_theme_file_path('/inc/widgets.php');
+
+/**
+ * Load custom post types
+ */
+require_once get_parent_theme_file_path('/inc/custom-post-types.php');
 
 /**
  * Load tweaks
  */
-require get_template_directory() . '/inc/tweaks.php';
+require_once get_parent_theme_file_path('/inc/tweaks.php');
 
 /**
  * Load shortcodes
  */
-require get_template_directory() . '/inc/shortcodes.php';
+require_once get_parent_theme_file_path('/inc/shortcodes.php');
 
 /**
  * Load custom functions
  */
-require get_template_directory() . '/inc/custom-functions.php';
+require_once get_parent_theme_file_path('/inc/custom-functions.php');

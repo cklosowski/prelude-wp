@@ -1,4 +1,2 @@
 <?php
-/**
- * Custom Post Types
- */
+// Custom Post Types

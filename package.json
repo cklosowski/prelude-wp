@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/factor1/Prelude#readme",
   "dependencies": {
-    "normalize-scss": "^6.0.0"
+    "normalize-scss": "^6.0.0",
+    "remodal": "^1.1.1",
+    "slick-carousel": "^1.6.0"
   },
   "devDependencies": {
     "browser-sync": "^2.18.6",

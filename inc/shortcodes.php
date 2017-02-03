@@ -1,4 +1,2 @@
 <?php
-/**
- * Custom Shortcodes
- */
+// Custom shortcodes

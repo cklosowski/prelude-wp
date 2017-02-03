@@ -1,9 +1,5 @@
 <?php
 /**
- * Custom Functions
- */
-
-/**
  * Debug some piece of code.
  * Remove the die; if you want the rest of the code on the page to execute
  *

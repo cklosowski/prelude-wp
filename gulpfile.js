@@ -55,7 +55,6 @@ options = {
     }]
   },
   sass: {
-    outputStyle: 'compact',
     includePaths: [
       './node_modules/normalize-scss/sass/'
     ]

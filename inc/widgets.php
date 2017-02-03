@@ -1,8 +1,4 @@
 <?php
-/**
- * Custom Widgets
- */
-
 function prelude_widgets_init() {
   register_sidebar( array(
     'name'          => __( 'Sidebar', 'prelude-wp' ),

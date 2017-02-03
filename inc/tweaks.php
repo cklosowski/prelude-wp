@@ -1,7 +1,4 @@
 <?php
-/**
- * Custom Theme Tweaks
- */
 // Set the maximum content width for the theme
 function prelude_content_width() {
   $GLOBALS['content_width'] = apply_filters( 'prelude_content_width', 1200 );

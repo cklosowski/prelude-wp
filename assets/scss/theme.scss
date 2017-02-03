@@ -1,18 +1,19 @@
 /* -------------------------------------------------------------------------------------------------
   Table of Contents
     - Vendor
-    - Globals
     - Plugins
-    - Pages
-    - Parts
+    - Globals
     - Components
 ------------------------------------------------------------------------------------------------- */
 // Vendor
 @import "normalize";
 @include normalize();
 
-// Theme styles
+// Settings and plugins
+// So that plugins do not inherit our them styles by default but can still use the variables, mixins, etc.
 @import "settings/all";
+@import "plugins/all";
+
+// Theme styles
 @import "globals/all";
 @import "components/all";
-@import "plugins/all";
